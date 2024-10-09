@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import bookLogo from "./assets/books.png";
 import { Routes, Route } from "react-router-dom";
 import { fetchAllBooks } from "./api";
 
 function App() {
   const [token, setToken] = useState(null);
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    const getAllBooks = async () => {
+      const books = await fetchAllBooks();
+      setBooks(books);
+    };
+    getAllBooks();
+  }, []);
   return (
     <>
       <h1>
